@@ -4916,5 +4916,34 @@ body.light-theme.theme-sepia #menu-screen{--sticky-bg:#f4ecd8}
   .spin-logo{animation:spinLogo 4s linear infinite !important}
 }
 </style>
+<style>
+/* ===== Плавное появление экранов (только CSS; срабатывает, когда экран становится видимым) ===== */
+@keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes screenFade{from{opacity:0}to{opacity:1}}
+[id$="-screen"]:not(#splash-screen){animation:screenIn .3s cubic-bezier(.2,.7,.2,1) backwards}
+/* при включённом «уменьшении движения» — только мягкое проявление, без сдвига */
+@media (prefers-reduced-motion:reduce){
+  [id$="-screen"]:not(#splash-screen){animation:screenFade .25s ease-out backwards}
+}
+
+/* ===== Плавные состояния кнопок и карточек ===== */
+.menu-btn{transition:transform .2s ease,background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}
+.st-all,.back-btn,.fav-btn,.st-arrow,.ts-chip,.set-row,.numpad button,.st-img,.list-item{
+  transition:transform .2s ease,background-color .2s ease,box-shadow .25s ease,filter .2s ease,opacity .2s ease,color .2s ease,border-color .2s ease;
+}
+
+/* ===== Эффекты при наведении мыши (только ПК; на телефоне не действуют) ===== */
+@media (hover:hover) and (pointer:fine){
+  .menu-btn:not(.settings):hover{transform:translateY(-3px)}
+  .menu-btn:not(.settings):active{transform:translateY(0) scale(.985)}
+  .st-all:hover{transform:translateY(-2px);box-shadow:var(--sh-hover)}
+  .back-btn:hover{transform:translateX(-3px)}
+  .fav-btn:hover,.st-arrow:hover{transform:scale(1.12)}
+  .ts-chip:hover{transform:translateY(-1px)}
+  .set-row:hover,.list-item:hover{background:rgba(128,128,140,0.12)}
+  .numpad button:hover{filter:brightness(1.18)}
+  .st-img:hover{box-shadow:0 12px 32px rgba(var(--accent-rgb),0.22)}
+}
+</style>
 </body>
 </html>
